@@ -3,8 +3,8 @@
         "host": "localhost",
         "port": 3306,
         "user": "root",
-        "password": "",
-        "database": "node-mysql-registration-login-api"
+        "password": "Utk@97096",
+        "database": "spiromicro"
     },
-    "secret": "THIS IS USED TO SIGN AND VERIFY JWT TOKENS, REPLACE IT WITH YOUR OWN SECRET, IT CAN BE ANY STRING"
+    "secret": "d1396a21-484e-4f93-ad27-519da4435bb9"
 }

@@ -4,9 +4,10 @@ module.exports = model;
 
 function model(sequelize) {
     const attributes = {
-        firstName: { type: DataTypes.STRING, allowNull: false },
-        lastName: { type: DataTypes.STRING, allowNull: false },
-        username: { type: DataTypes.STRING, allowNull: false },
+        fname: { type: DataTypes.STRING, allowNull: false },
+        sname: { type: DataTypes.STRING, allowNull: false },
+        email: { type: DataTypes.STRING, allowNull: false },
+        hospital: { type: DataTypes.STRING, allowNull: false },
         hash: { type: DataTypes.STRING, allowNull: false }
     };
 
@@ -21,5 +22,5 @@ function model(sequelize) {
         }
     };
 
-    return sequelize.define('User', attributes, options);
+    return sequelize.define('Doctor', attributes, options);
 }

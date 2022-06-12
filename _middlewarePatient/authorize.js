@@ -6,20 +6,20 @@ module.exports = authorize;
 
 function authorize() {
     return [
-        // authenticate JWT token and attach decoded token to request as req.user
+        // authenticate JWT token and attach decoded token to request as req.patient
         jwt({ secret, algorithms: ['HS256'] }),
 
-        // attach full user record to request object
+        // attach full patient record to request object
         async (req, res, next) => {
-            // get user with id from token 'sub' (subject) property
-            const user = await db.user.findByPk(req.user.sub);
+            // get patient with id from token 'sub' (subject) property
+            const patient = await db.patient.findByPk(req.patient.sub);
 
-            // check user still exists
-            if (!user)
+            // check patient still exists
+            if (!patient)
                 return res.status(401).json({ message: 'Unauthorized' });
 
             // authorization successful
-            req.user = user.get();
+            req.patient = patient.get();
             next();
         }
     ];
