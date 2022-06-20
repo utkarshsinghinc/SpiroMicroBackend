@@ -1,9 +1,9 @@
 ﻿const express = require('express');
 const router = express.Router();
 const Joi = require('joi');
-const validateRequest = require('_middleware/validate-request');
-const authorize = require('_middleware/authorize')
-const doctorService = require('./doctor.service');
+const validateRequest = require('_middlewareAdmin/validate-request');
+const authorize = require('_middlewareAdmin/authorize')
+const adminService = require('./admin.service');
 
 // routes
 router.post('/authenticate', authenticateSchema, authenticate);
@@ -12,7 +12,7 @@ router.post('/register', registerSchema, register);
 router.get('/', getAll);
 router.get('/current', getCurrent);
 router.get('/:id', getById);
-router.put('/:docEC', updateSchema, update);
+router.put('/:id', updateSchema, update);
 router.delete('/:id', _delete);
 
 module.exports = router;
@@ -26,8 +26,8 @@ function authenticateSchema(req, res, next) {
 }
 
 function authenticate(req, res, next) {
-    doctorService.authenticate(req.body)
-        .then(doctor => res.json(doctor))
+    adminService.authenticate(req.body)
+        .then(admin => res.json(admin))
         .catch(next);
 }
 
@@ -37,30 +37,30 @@ function registerSchema(req, res, next) {
         sname: Joi.string().required(),
         email: Joi.string().required(),
         password: Joi.string().min(6).required(),
-        docEC: Joi.string().required(),
+        //docEC: Joi.string().required(),
     });
     validateRequest(req, next, schema);
 }
 
 function register(req, res, next) {
-    doctorService.create(req.body)
+    adminService.create(req.body)
         .then(() => res.json({ message: 'Registration successful' }))
         .catch(next);
 }
 
 function getAll(req, res, next) {
-    doctorService.getAll()
-        .then(doctors => res.json(doctors))
+    adminService.getAll()
+        .then(admins => res.json(admins))
         .catch(next);
 }
 
 function getCurrent(req, res, next) {
-    res.json(req.doctor);
+    res.json(req.admin);
 }
 
 function getById(req, res, next) {
-    doctorService.getById(req.params.id)
-        .then(doctor => res.json(doctor))
+    adminService.getById(req.params.id)
+        .then(admin => res.json(admin))
         .catch(next);
 }
 
@@ -76,13 +76,13 @@ function updateSchema(req, res, next) {
 }
 
 function update(req, res, next) {
-    doctorService.update(req.params.docEC, req.body)
-        .then(doctor => res.json(doctor))
+    adminService.update(req.params.docEC, req.body)
+        .then(admin => res.json(admin))
         .catch(next);
 }
 
 function _delete(req, res, next) {
-    doctorService.delete(req.params.id)
-        .then(() => res.json({ message: 'doctor deleted successfully' }))
+    adminService.delete(req.params.id)
+        .then(() => res.json({ message: 'admin deleted successfully' }))
         .catch(next);
 }

@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
+const multer = require('multer')
 
 module.exports = {
     authenticate,
@@ -84,3 +85,4 @@ function omitHash(patient) {
     const { hash, ...userWithoutHash } = patient;
     return userWithoutHash;
 }
+

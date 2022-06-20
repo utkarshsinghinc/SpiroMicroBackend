@@ -7,7 +7,7 @@ function model(sequelize) {
         fname: { type: DataTypes.STRING, allowNull: false },
         sname: { type: DataTypes.STRING, allowNull: false },
         email: { type: DataTypes.STRING, allowNull: false },
-        docEC: { type: DataTypes.STRING, allowNull: false },
+        // docEC: { type: DataTypes.STRING, allowNull: false },
         hash: { type: DataTypes.STRING, allowNull: false }
     };
 
@@ -22,5 +22,5 @@ function model(sequelize) {
         }
     };
 
-    return sequelize.define('Doctor', attributes, options);
+    return sequelize.define('Admin', attributes, options);
 }

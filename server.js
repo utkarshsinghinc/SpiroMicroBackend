@@ -12,7 +12,8 @@ app.use(cors());
 // api routes
 app.use('/doctors', require('./doctors/doctors.controller'));
 app.use('/patients', require('./patients/patients.controller'));
-
+app.use('/audioUpload', require('./audioUpload/index'))
+app.use('/admins', require('./admin/admins.controller'))
 // global error handler
 app.use(errorHandler);
 

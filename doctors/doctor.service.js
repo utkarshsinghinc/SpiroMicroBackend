@@ -46,8 +46,8 @@ async function create(params) {
     await db.doctor.create(params);
 }
 
-async function update(id, params) {
-    const doctor = await getUser(id);
+async function update(docEC, params) {
+    const doctor = await getUser(docEC);
 
     // validate
     const usernameChanged = params.email && doctor.email !== params.email;
