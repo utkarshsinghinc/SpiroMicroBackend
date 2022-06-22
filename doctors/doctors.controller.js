@@ -66,10 +66,10 @@ function getById(req, res, next) {
 
 function updateSchema(req, res, next) {
     const schema = Joi.object({
-        fname: Joi.string().empty(''),
-        sname: Joi.string().empty(''),
-        email: Joi.string().empty(''),
-        password: Joi.string().min(6).empty(''),
+        // fname: Joi.string().empty(''),
+        //sname: Joi.string().empty(''),
+        email: Joi.string(),
+        password: Joi.string(),
         //docEC: Joi.string().empty(''),
     });
     validateRequest(req, next, schema);
