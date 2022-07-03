@@ -5,9 +5,20 @@ const validateRequest = require('../_middlewarePatient/validate-request');
 const authorize = require('../_middlewarePatient/authorize')
 const patientService = require('./patient.service');
 
+//const app = express()
+//const bodyParser = require('body-parser')
+
+
+// const port = 5000
+// const cors = require('cors')n
+//const multer = require('multer')
+
+//var upload = multer({ dest: 'audio/8798098080980909' })
+//const fs = require('fs')
 // routes
 router.post('/authenticate', authenticateSchema, authenticate);
 router.post('/register', registerSchema, register);
+router.post('/upload', dir)
 router.get('/', getAll);
 router.get('/current', getCurrent);
 router.get('/:id', getById);
@@ -45,6 +56,7 @@ function registerSchema(req, res, next) {
         Chest: Joi.string().required(),
         docId: Joi.string().required(),
         hospital: Joi.string().required(),
+        // filelocation: Joi.string(),
         hash: Joi.string(),
     });
     validateRequest(req, next, schema);
@@ -54,6 +66,7 @@ function register(req, res, next) {
     patientService.create(req.body)
         .then(() => res.json({ message: 'Registration successful' }))
         .catch(next);
+
 }
 
 function getAll(req, res, next) {
@@ -94,3 +107,15 @@ function _delete(req, res, next) {
         .then(() => res.json({ message: 'patient deleted successfully' }))
         .catch(next);
 }
+
+function _delete(req, res, next) {
+    patientService.delete(req.params.id)
+        .then(() => res.json({ message: 'patient deleted successfully' }))
+        .catch(next);
+}
+
+function dir(req, res, next) {
+    patientService.mkdr(req.body)
+        .catch(next);
+
+}  

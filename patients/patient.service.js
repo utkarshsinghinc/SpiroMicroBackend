@@ -2,15 +2,20 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
+//const multer = require('multer')
 const multer = require('multer')
-
+var upload = multer({ dest: 'audio/' })
+const fs = require("fs");
 module.exports = {
     authenticate,
     getAll,
     getById,
     create,
     update,
-    delete: _delete
+    delete: _delete,
+    mkdr
+
+
 };
 
 async function authenticate({ email, uhid }) {
@@ -43,8 +48,36 @@ async function create(params) {
         params.hash = await bcrypt.hash(params.uhid, 10);
     }
 
+
+
+    params.filelocation = "audio/" + params.uhid
+
+
     // save patient
     await db.patient.create(params);
+
+    const path = `audio/${params.uhid}`;
+
+    fs.access(path, (error) => {
+
+        // To check if the given directory 
+        // already exists or not
+        if (error) {
+            // If current directory does not exist
+            // then create it
+            fs.mkdir(path, { recursive: true }, (error) => {
+                if (error) {
+                    console.log(error);
+                } else
+                    console.log("New Directory created successfully !!");
+
+            });
+        } else {
+            console.log("Given Directory already exists !!");
+        }
+    });
+
+
 }
 
 async function update(id, params) {
@@ -86,3 +119,8 @@ function omitHash(patient) {
     return userWithoutHash;
 }
 
+async function mkdr(req) {
+    // upload.single('file')
+    // console.log(req.file, req.body)
+   
+}

@@ -16,6 +16,7 @@ function model(sequelize) {
         Chest: { type: DataTypes.STRING, allowNull: false },
         docId: { type: DataTypes.STRING, allowNull: false },
         hospital: { type: DataTypes.STRING, allowNull: false },
+        filelocation: { type: DataTypes.STRING, allowNull: true },
         hash: { type: DataTypes.STRING, allowNull: true }
     };
 

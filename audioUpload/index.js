@@ -1,46 +1,28 @@
-const express = require('express')
-//const app = express()
-//const bodyParser = require('body-parser')
-const router = express.Router()
+const express = require('express');
+const multer = require('multer');
+//const path = require('path');
+const router = express.Router();
 
-// const port = 5000
-// const cors = require('cors')n
-const multer = require('multer')
-var upload = multer({ dest: 'audio/' })
-const fs = require('fs')
-
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         cb(null, 'audio/')
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, file.originalname)
-//     },
-// })
-
-// const upload = multer({ storage: storage })
-
-
-// router.post('/audio', upload.single('file'), function (req, res) {
-//     res.json({})
-// })
-// app.use(bodyParser.json());
-// app.use(bodyParser.urlencoded({ extended: true }));
-
-router.get('/', (req, res) => {
-    res.json({
-        success: true
-    })
+//const uuid = require('uuid').v4;
+//const app = express();
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        const { originalname } = file;
+        // or 
+        // uuid, or fieldname
+        cb(null, originalname);
+    }
 })
+const upload = multer({ storage }); // or simply { dest: 'uploads/' }
+router.use(express.static('public'))
+router.use(express.urlencoded({ extended: true }))
 
-
-router.post('/', (req, res) => {
+router.post('/upload', upload.single("avatar"), (req, res) => {
+    res.json({ status: 'OK' });
     console.log(req.body)
-    res.status(200)
-})
-
-router.post('/upload', upload.single('document'), (req, res) => {
-    console.log(req.file, req.body)
+    console.log(req.file)
 });
-
 module.exports = router;
